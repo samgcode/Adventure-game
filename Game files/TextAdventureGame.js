@@ -12,20 +12,8 @@ var levelNodes;
 //setTimeout(loadNextLevel, 2000);
 
 function loadNextLevel() {
-  removeElement(level);
+  removeElementById(level);
   level++;
-}
-
-
-function removeElement(elementId) {
-    // Removes an element from the document
-    var element = document.getElementById(elementId);
-    element.parentNode.removeChild(element);
-}
-
-function removeElementByClass(className) {
-  var elem = document.getElementsByClassName(className)[0];
-  elem.parentNode.removeChild(elem);
 }
 
 document.addEventListener('keydown', (event) => {
@@ -90,19 +78,33 @@ function updateButton(button) {
       return;
     }
     if(complete === true) {
-      removeElementByClass('spike');
-      var door = document.getElementsByClassName(`door-${level}`)[0];
+      var stageDiv = button.parentNode;
+      var stage = stageDiv.className.split(' ')[1];
+      var levelDiv = stageDiv.parentNode;
+      var buttonLvl = levelDiv.id;
+
+      var spike = stageDiv.getElementsByClassName('spike')[0];
+      var door = levelDiv.getElementsByClassName(`door-${level}`)[0];
+
+      removeElement(spike);
       door.className = `${door.className} open`
     }
 }
 
+function removeElement(element) {
+  element.parentNode.removeChild(element);
+}
 
+function removeElementById(elementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
+}
 
-
-
-
-
-
+function removeElementByClass(className) {
+  var elem = document.getElementsByClassName(className)[0];
+  elem.parentNode.removeChild(elem);
+}
 
 
 
