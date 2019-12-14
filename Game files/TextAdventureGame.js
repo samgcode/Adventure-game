@@ -9,7 +9,6 @@ var level = 1;
 var levelNode;
 var levelNodes;
 
-//setTimeout(loadNextLevel, 2000);
 
 function loadNextLevel() {
   removeElementById(level);
@@ -84,10 +83,16 @@ function updateButton(button) {
       var buttonLvl = levelDiv.id;
 
       var spike = stageDiv.getElementsByClassName('spike')[0];
-      var door = levelDiv.getElementsByClassName(`door-${level}`)[0];
 
       removeElement(spike);
-      door.className = `${door.className} open`
+
+      var spikes = levelDiv.getElementsByClassName('spike');
+      var spikeCount = spikes.length;
+
+      if(spikeCount <= 0) {
+        var door = levelDiv.getElementsByClassName(`door-${level}`)[0];
+        door.className = `${door.className} open`;
+      }
     }
 }
 
