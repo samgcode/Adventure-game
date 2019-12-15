@@ -88,17 +88,16 @@ function  getState(point) {
 var complete = false;
 
 function updateButton(button) {
-    if(state === 'button') {
+  var stageDiv = button.parentNode;
+  var stage = stageDiv.className.split(' ')[1];
+  var levelDiv = stageDiv.parentNode;
+  var buttonLvl = levelDiv.id;
+  console.log(stage);
+  console.log(playerStage);
+
+  if(state === 'button') {
+    if(parseInt(stage) === playerStage) {
       button.src = buttonActiveImg;
-      complete = true;
-    } else {
-      return;
-    }
-    if(complete === true) {
-      var stageDiv = button.parentNode;
-      var stage = stageDiv.className.split(' ')[1];
-      var levelDiv = stageDiv.parentNode;
-      var buttonLvl = levelDiv.id;
 
       var spike = stageDiv.getElementsByClassName('spike')[0];
 
@@ -108,13 +107,12 @@ function updateButton(button) {
       var spikeCount = spikes.length;
 
       playerStage++;
-      console.log(playerStage);
-
       if(spikeCount <= 0) {
         var door = levelDiv.getElementsByClassName(`door-${level}`)[0];
         door.className = `${door.className} open`;
       }
     }
+  }
 }
 
 function removeElement(element) {
