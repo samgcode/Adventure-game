@@ -9,8 +9,10 @@ var level = 1;
 var levelNode;
 var levelNodes;
 
+var playerStage = 1;
 
 function loadNextLevel() {
+  playerStage = 1;
   removeElementById(level);
   level++;
 }
@@ -31,11 +33,27 @@ document.addEventListener('click', (event) => {
     var target = event.target;
     var targetClass = target.className.split(' ')[0];
     if(targetClass === 'player-clickable') {
-      movePlayer(target);
+      var targetDiv = target.parentNode;
+      var targetStage = targetDiv.className.split(' ')[1];
+
+      if(parseInt(targetStage) <= playerStage) {
+        movePlayer(target);
+      }
     } else if(targetClass === 'button') {
       updateButton(target);
     }
 });
+
+function getPlayer(target) {
+  var levelDiv = target.parentNode.parentNode;
+  var movePoints = levelDiv.getElementsByClassName('player-clickable');
+
+  for(var i = 0; i < movePoints.length; i++) {
+    if(movePoints[i].src === "file:///Users/samgaudet/Documents/TextGame/Adventure-game/Images/interactable/move%20points/Player.png") {
+      return movePoints[i];
+    }
+  }
+}
 
 function movePlayer(target) {
   var div = document.getElementById(`${level}`);
@@ -88,6 +106,9 @@ function updateButton(button) {
 
       var spikes = levelDiv.getElementsByClassName('spike');
       var spikeCount = spikes.length;
+
+      playerStage++;
+      console.log(playerStage);
 
       if(spikeCount <= 0) {
         var door = levelDiv.getElementsByClassName(`door-${level}`)[0];
