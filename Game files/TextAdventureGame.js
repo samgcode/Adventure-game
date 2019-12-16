@@ -2,19 +2,48 @@ const playerImg = '../Images/interactable/move points/Player.png';
 const movePointImg = '../Images/interactable/move points/MovePoint.png';
 const buttonImg = '../Images/interactable/buttons/Button.png';
 const buttonActiveImg = '../Images/interactable/buttons/ButtonPressed.png';
+const timer = document.getElementsByClassName('timer')[0];
 
 var playerState = 'default';
 var level = 1;
+var state;
 
 var levelNode;
 var levelNodes;
 
 var playerStage = 1;
 
+var startTime;
+
+start();
+function  start() {
+  startTimer();
+}
+
+var timerInterval;
+function startTimer() {
+  startTime = new Date().getTime();
+  timerInterval = setInterval(calcTime, 1);
+}
+
+var currentTime;
+function calcTime() {
+  currentTime = new Date().getTime();
+  var time = (currentTime - startTime)/1000;
+  timer.textContent = time;
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
 function loadNextLevel() {
   playerStage = 1;
   removeElementById(level);
   level++;
+  if(level === 3) {
+    stopTimer();
+  }
 }
 
 document.addEventListener('keydown', (event) => {
