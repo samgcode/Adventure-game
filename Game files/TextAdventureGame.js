@@ -26,6 +26,8 @@ document.addEventListener('keydown', (event) => {
   }
 );
 
+var moveStage = 0;
+
 document.addEventListener('click', (event) => {
     var posX = event.pageX;
     var posY = event.pageY;
@@ -35,12 +37,12 @@ document.addEventListener('click', (event) => {
     if(targetClass === 'player-clickable') {
       var targetDiv = target.parentNode;
       var targetStage = targetDiv.className.split(' ')[1];
-
       if(parseInt(targetStage) <= playerStage) {
+        moveStage = targetStage;
         movePlayer(target);
       }
     } else if(targetClass === 'button') {
-      updateButton(target);
+      updateButton(target, moveStage);
     }
 });
 
@@ -87,16 +89,18 @@ function  getState(point) {
 
 var complete = false;
 
-function updateButton(button) {
+function updateButton(button, movePointStage) {
   var stageDiv = button.parentNode;
   var stage = stageDiv.className.split(' ')[1];
   var levelDiv = stageDiv.parentNode;
   var buttonLvl = levelDiv.id;
+
   console.log(stage);
   console.log(playerStage);
+  console.log(movePointStage);
 
   if(state === 'button') {
-    if(parseInt(stage) === playerStage) {
+    if(parseInt(stage) === playerStage && playerStage === parseInt(movePointStage)) {
       button.src = buttonActiveImg;
 
       var spike = stageDiv.getElementsByClassName('spike')[0];
