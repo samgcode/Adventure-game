@@ -1,10 +1,13 @@
-* {
-  color: blue;
-}
-
 img{
   position: absolute;
+}
 
+button {
+  align-self: center;
+}
+
+.title {
+  font-size: 80px;
 }
 
 .player-clickable {
