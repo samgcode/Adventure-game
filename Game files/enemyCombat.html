@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="TextAdventureGame.css">
+    <title>your welcome justin</title>
+  </head>
+  <body>
+    <h1 id="qte-timer">Time: 3</h1>
+    <div class="enemy-container text-center">
+      <img src="../images/creeper.png" class="enemy" alt="">
+    </div>
+    <button id="qte-btn" class="btn btn-outline-primary" type="button" name="attack" onclick="moveBtn()">Attack</button>
+  </body>
+
+  <script type="text/javascript">
+    var qteTimer = document.getElementById('qte-timer');
+
+    var enemyHealth = randomNum(1, 5);
+
+    var button = document.getElementById('qte-btn');
+    var bufferX = 400;
+    var bufferY = 200;
+    var randomX = randomNum(bufferX, 1920-bufferX);
+    var randomY = randomNum(bufferY, 1080-bufferY);
+    button.style = `margin-left: ${randomX}px; margin-top: ${randomY}px`;
+
+    var qteTime = 3;
+    var qteInterval = setInterval(countDown, 1000);
+
+    function moveBtn() {
+      qteTime = 3;
+      updateTimer()
+      randomX = randomNum(bufferX, 1920-bufferX);
+      randomY = randomNum(bufferY, 1080-bufferY);
+      button.style = `margin-left: ${randomX}px; margin-top: ${randomY}px`;
+      console.log(enemyHealth);
+      enemyHealth--;
+      if(enemyHealth <= 0) {
+        alert('you win');
+        window.location.reload();
+      }
+    }
+
+    function countDown() {
+      qteTime--;
+      updateTimer();
+      if(qteTime <= 0) {
+        window.location.reload();
+      }
+    }
+
+    function updateTimer() {
+        qteTimer.textContent = `Time: ${qteTime}`;
+    }
+
+    //get a random number
+    function randomNum(min, max) {
+       return Math.floor(Math.random() * (max + 1 - min) + min);
+     }
+  </script>
+</html>

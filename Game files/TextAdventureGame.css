@@ -25,3 +25,8 @@ button {
   font-size: 50px;
   color: black;
 }
+
+.enemy {
+  width: 176px; /* 22 *2*2*2 */
+  height: 180px; /* 25 */
+}
