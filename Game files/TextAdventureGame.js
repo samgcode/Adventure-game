@@ -8,29 +8,47 @@ var playerState = 'default';
 var level = 1;
 var state;
 
-var levelNode;
-var levelNodes;
-
 var playerStage = 1;
 
 var startTime;
 
-start();
-function  start() {
-  startTimer();
+setup();
+
+function setup() {
+  var levels = document.getElementsByClassName('level');
+  for (var i = 0; i < levels.length; i++) {
+    levels[i].style.visibility = 'hidden';
+  }
+  timer.style.visibility = 'hidden';
+}
+
+function startGame() {
+  var levels = document.getElementsByClassName('level');
+  for (var i = 0; i < levels.length; i++) {
+    levels[i].style.visibility = '';
+  }
+
+  timer.style.visibility = '';
+  document.getElementsByClassName('title-screen')[0].style.visibility = 'hidden';
+
+  sizing();
 }
 
 var timerInterval;
+var timerStarted = false;
 function startTimer() {
-  startTime = new Date().getTime();
-  timerInterval = setInterval(calcTime, 1);
+  if(timerStarted != true) {
+    startTime = new Date().getTime();
+    timerInterval = setInterval(calcTime, 1);
+  }
+  timerStarted = true;
 }
 
 var currentTime;
 function calcTime() {
   currentTime = new Date().getTime();
   var time = (currentTime - startTime)/1000;
-  timer.textContent = time;
+  timer.textContent = `Time: ${time}`;
 }
 
 function stopTimer() {
@@ -58,6 +76,7 @@ document.addEventListener('keydown', (event) => {
 var moveStage = 0;
 
 document.addEventListener('click', (event) => {
+    startTimer();
     var posX = event.pageX;
     var posY = event.pageY;
     console.log(`x = ${posX}, y = ${posY}`);
@@ -106,7 +125,7 @@ function  getState(point) {
   } else if(buttonClass === 'door-point') {
     state = 'door';
     var door = document.getElementsByClassName(`door-${level}`)[0];
-    if(door.className.split(' ')[1] == 'open') {
+    if(door.className.split(' ')[2] == 'open') {
       console.log('test');
       loadNextLevel();
     }
@@ -163,6 +182,25 @@ function removeElementByClass(className) {
   elem.parentNode.removeChild(elem);
 }
 
+function sizing(){
+  var walls = document.getElementsByClassName('wall-vertical-780');
+  console.log(walls);
+  for(var i = 0; i < walls.length; i++){
+    console.log(i);
+    document.getElementsByClassName('wall-vertical-780')[i].style.width = '30px';
+    document.getElementsByClassName('wall-vertical-780')[i].style.height = '780px';
+  }
+  walls = document.getElementsByClassName('wall-vertical-200');
+  for(var i = 0; i < walls.length; i++){
+    document.getElementsByClassName('wall-vertical-200')[i].style.width = '30px';
+    document.getElementsByClassName('wall-vertical-200')[i].style.height = '200px';
+  }
+  walls = document.getElementsByClassName('wall-horizontal-200');
+  for(var i = 0; i < walls.length; i++){
+    document.getElementsByClassName('wall-horizontal-200')[i].style.width = '200px';
+    document.getElementsByClassName('wall-horizontal-200')[i].style.height = '30px';
+  }
+}
 
 
 
