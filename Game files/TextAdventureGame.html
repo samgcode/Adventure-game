@@ -16,13 +16,33 @@
       </div>
 
       <div class="walls">
-
+          <img src="../Images/interactable/doors/DoorClosed.png" class="door-3 door" style="left:809px; top: 100px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-780' style="left:890px; top: 762px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-780' style="left:440px; top: 762px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:440px; top: 562px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:440px; top: 362px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:650px; top: 100px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:650px; top: 450px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-780' style="left:650px; top: 285px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-200' style="left:650px; top: 635px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-200' style="left:650px; top: 435px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-200' style="left:850px; top: 435px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:1020px; top: 465px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-200' style="left:1020px; top: 635px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-200' style="left:1220px; top: 635px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-horizontal-200' style="left:1230px; top: 635px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:1400px; top: 435px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:1400px; top: 300px;" alt="">
+          <img src="../Images/walls/WallTile.png" class='wall-vertical-200' style="left:1210px; top: 435px;" alt="">
       </div>
       <div class="spikes">
-
+        <img src="../Images/interactable/spikes/SpikesDown.png" class='spike-down-180' style="left:470px; top: 492px;" alt="">
+        <img src="../Images/interactable/spikes/SpikesUp.png" class='spike spike-180' style="left:470px; top: 462px;" alt="">
       </div>
       <div class="interactable">
-
+        <img src="../Images/interactable/chests/chest.png" class="chest" style="left:750px; top: 500px;" alt="">
+        <img src="../Images/interactable/buttons/Button.png" style="left: 1290px; top: 490px;" class="button inactive" alt="">
+        <img src="../Images/interactable/move points/Player.png" style="left:886px; top: 850px;" class="player-clickable" alt="">
       </div>
       <div class="enemies">
 
@@ -62,16 +82,14 @@
         <img src="../Images/interactable/spikes/SpikesDown.png" style="left:800px; top: 309px;" alt="">
         <img src="../Images/interactable/spikes/SpikesUp.png" class="spike" style="left:800px; top: 279px;" alt="">
 
+        <img src="../Images/interactable/enemies/RedEnemy.png" class="enemy" style="left:900px; top: 450px;" alt="">
+
         <img src="../Images/interactable/buttons/Button.png" style="left: 1185px; top: 430px;" class="button inactive" alt="">
         <img src="../Images/interactable/move points/MovePoint.png" style="left: 1050px; top: 430px;" class="player-clickable button-point" alt="">
       </div>
 
       <div class="stage 3">
         <img src="../Images/interactable/move points/MovePoint.png" style="left:850px; top: 200px;"  class="player-clickable door-point" alt="">
-      </div>
-
-      <div class="enemies">
-        <img src="../Images/Creeper.png" class="enemy" style="left:900px; top: 450px;" alt="">
       </div>
     </div>
 
@@ -99,19 +117,43 @@
     </div>
 
     <div class="title-screen">
-      <h1 class="text-center title">Title screen</h1>
+      <h1 class="text-center title">Taco adventure 3</h1>
 
       <div class="text-center">
         <button class=" btn btn-primary"type="button" name="start" onclick="startGame()">Start Game</button>
       </div>
     </div>
+
+    <div class="enemy-combat" id="enemy-combat">
+      <h1 id="qte-timer">Time: 3</h1>
+      <div class="enemy-container text-center">
+        <img src="../Images/interactable/enemies/RedEnemy.png" class="qte enemy" alt="">
+      </div>
+      <button id="qte-btn" class="btn btn-outline-primary" type="button" name="attack" onclick="moveBtn()">Attack</button>
+    </div>
   </body>
   <script type="text/javascript" src="TextAdventureGame.js"></script>
 </html>
 
-
+<!-- text channel:
+i have returned
+we should discord
+-->
 
 <!--
-j: 2.614
-S: 4.18
+records:
+  any% glitchless:
+    J: 4.397
+    S: 5.385
+  any%:
+    J: 3.492
+    S: 5.059
+  100%:
+    J:
+    S:
+  meme%:(epic lol funny fortnight funny family funny guy times)
+    7.777, 4.169, 21.331, 7.2, 6.444, 6.908
+  10sec%(price is right rules):
+    J: 9.98
+    S: 9.885
  -->
