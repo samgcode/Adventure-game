@@ -76,7 +76,7 @@ function loadNextLevel() {
   enemyBeat = false;
   removeElementById(level);
   level++;
-  if(level === levelCount) {
+  if(level === levelCount+1) {
     stopTimer();
   }
 }
@@ -134,6 +134,7 @@ function getState(point) {
 
   } else if(buttonClass === 'door-point') {
     state = 'door';
+    console.log(state);
     checkComplete();
 
   } else {
@@ -184,42 +185,34 @@ function removeElementByClass(className) {
   elem.parentNode.removeChild(elem);
 }
 
-function sizing(){
-  var amount = document.getElementsByClassName('wall-vertical-780');
-  for(var i = 0; i < amount.length; i++){
-    document.getElementsByClassName('wall-vertical-780')[i].style.width = '30px';
-    document.getElementsByClassName('wall-vertical-780')[i].style.height = '780px';
+function sizing() {
+  var walls = document.getElementsByClassName('wall');
+  for (var i = 0; i < walls.length; i++) {
+    var wall = walls[i];
+    var wallDir = wall.className.split(' ')[1];
+    var wallSize = wall.className.split(' ')[2];
+    if(wallDir === 'horizontal') {
+      wall.style.width = `${wallSize}px`;
+      wall.style.height = '30px';
+    } else {
+      wall.style.width = '30px';
+      wall.style.height = `${wallSize}px`;
+    }
   }
-  amount = document.getElementsByClassName('wall-vertical-200');
-  for(var i = 0; i < amount.length; i++){
-    document.getElementsByClassName('wall-vertical-200')[i].style.width = '30px';
-    document.getElementsByClassName('wall-vertical-200')[i].style.height = '200px';
-  }
-  amount = document.getElementsByClassName('wall-horizontal-200');
-  for(var i = 0; i < amount.length; i++){
-    document.getElementsByClassName('wall-horizontal-200')[i].style.width = '200px';
-    document.getElementsByClassName('wall-horizontal-200')[i].style.height = '30px';
-  }
-  amount = document.getElementsByClassName('wall-horizontal-780');
-  for(var i = 0; i < amount.length; i++){
-    document.getElementsByClassName('wall-horizontal-780')[i].style.width = '780px';
-    document.getElementsByClassName('wall-horizontal-780')[i].style.height = '30px';
-  }
-  amount = document.getElementsByClassName('spike-180');
-  for(var i = 0; i < amount.length; i++){
-    document.getElementsByClassName('spike-180')[i].style.width = '180px';
-    document.getElementsByClassName('spike-180')[i].style.height = '50px';
-  }
-  amount = document.getElementsByClassName('spike-down-180');
-  for(var i = 0; i < amount.length; i++){
-    document.getElementsByClassName('spike-down-180')[i].style.width = '180px';
-    document.getElementsByClassName('spike-down-180')[i].style.height = '25px';
-  }
+  sizeSpikes('spike');
+  sizeSpikes('spikeDown');
 }
 
-
-
-
+function sizeSpikes(className) {
+  var spikes = document.getElementsByClassName(className);
+  for (var i = 0; i < spikes.length; i++) {
+    var spike = spikes[i];
+    var width = spike.className.split(' ')[1];
+    var height = spike.className.split(' ')[2];
+    spike.style.width = `${width}px`;
+    spike.style.height = `${height}px`;
+  }
+}
 
 var enemyHealth;
 var enemyStage;
@@ -286,7 +279,8 @@ function moveBtn() {
 function stopCombat() {
   enemyBeat = true;
   clearInterval(qteInterval);
-  var stageDiv = document.getElementsByClassName(`stage ${enemyStage}`)[0];
+  var levelDiv = document.getElementById(level);
+  var stageDiv = levelDiv.getElementsByClassName(`stage ${enemyStage}`)[0];
   var enemyImg = stageDiv.getElementsByClassName('enemy')[0];
   stageDiv.removeChild(enemyImg);
   startGame();
@@ -295,7 +289,9 @@ function stopCombat() {
 
 function checkComplete() {
   var door = document.getElementsByClassName(`door-${level}`)[0];
+  console.log(door);
   if(door.className.split(' ')[2] == 'open' && enemyBeat === true && state === 'door') {
+    console.log('test');
     loadNextLevel();
   }
 }
