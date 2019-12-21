@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="TextAdventureGame.css">
+    <title>your welcome justin</title>
+  </head>
+  <body>
+    <h1 id="qte-timer-riddle">Time: 3</h1>
+    <div class="enemy-container text-center">
+      <img src="../images/interactable/enemies/BlackEnemy.png" class="enemy" alt="">
+    </div>
+    <button class="btn btn-outline-warning qte-btn-riddle" type="button" name="attack" onclick="answer(this.textContent)">Question 1</button>
+    <button class="btn btn-outline-info qte-btn-riddle" type="button" name="attack" onclick="answer(this.textContent)">Question 2</button>
+    <button class="btn btn-outline-primary qte-btn-riddle" type="button" name="attack" onclick="answer(this.textContent)">Question 3</button>
+    <button class="btn btn-outline-success qte-btn-riddle" type="button" name="attack" onclick="answer(this.textContent)">Question 4</button>
+  </body>
+
+  <script type="text/javascript">
+    var buttons = document.getElementsByClassName('qte-btn-riddle');
+
+    var bufferX = 400;
+    var bufferY = 200;
+
+    var riddleTime = 3;
+
+    const question = {
+      1: 'A1',
+      2: 'A2',
+      3: 'A3',
+      4: 'A4',
+      'answer': 3,
+    };
+
+    riddle();
+
+    function riddle() {
+      setupBtns();
+      qteInterval = setInterval(countDown, 1000);
+    }
+
+    function setupBtns() {
+      for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        var ans = question[i+1];
+        button.textContent = ans;
+      }
+      randomizeBtns();
+    }
+
+    function answer(text) {
+      var correct = question['answer'];
+      var ans = question[correct]
+      if(text === ans) {
+        alert(correct);
+      } else {
+        window.location.reload();
+      }
+    }
+
+    function randomizeBtns() {
+      for (var i = 0; i < buttons.length; i++) {
+        var btn = buttons[i];
+        var randomX = randomNum(bufferX, 1920-bufferX);
+        var randomY = randomNum(bufferY, 1080-bufferY);
+
+        btn.style = `margin-left: ${randomX}px; margin-top: ${randomY}px; position: absolute;`;
+      }
+    }
+
+    function countDown() {
+      riddleTime--;
+      updateRiddleTime();
+    }
+
+    function updateRiddleTime() {
+      var qteTimer = document.getElementById('qte-timer-riddle');
+      qteTimer.textContent = `Time: ${riddleTime}`;
+
+      if(riddleTime <= 0) {
+        window.location.reload();
+      }
+    }
+
+    //get a random number
+    function randomNum(min, max) {
+       return Math.floor(Math.random() * (max + 1 - min) + min);
+     }
+  </script>
+</html>

@@ -3,6 +3,7 @@ img{
 }
 
 button {
+  position: absolute;
   align-self: center;
 }
 
@@ -34,4 +35,8 @@ button {
 .chest {
   width: 160px;
   height: 80px;
+}
+
+ul {
+  list-style-type: none;
 }

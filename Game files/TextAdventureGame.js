@@ -2,7 +2,10 @@ const playerImg = '../Images/interactable/move points/Player.png';
 const movePointImg = '../Images/interactable/move points/MovePoint.png';
 const buttonImg = '../Images/interactable/buttons/Button.png';
 const buttonActiveImg = '../Images/interactable/buttons/ButtonPressed.png';
+const chestOpenImg = '../Images/interactable/chests/chestOpen.png';
 const timer = document.getElementsByClassName('timer')[0];
+
+var levelDiv;
 
 var playerState = 'default';
 var level = 1;
@@ -14,6 +17,7 @@ var playerStage = 1;
 var startTime;
 
 var enemyBeat = true;
+var instaKill = 0;
 
 setup();
 
@@ -22,13 +26,26 @@ function setup() {
 
   var combatScreen = document.getElementById('enemy-combat');
   combatScreen.style.visibility = 'hidden';
+
+  levelDiv = document.getElementById(level);
 }
+
+var gameStarted = false;
 
 function startGame() {
   startTimer();
   var levels = document.getElementsByClassName('level');
   for (var i = 0; i < levels.length; i++) {
     levels[i].style.visibility = '';
+  }
+
+  if(gameStarted != true) {
+    var htpElements = document.getElementsByClassName('htp');
+    for (var i = 0; i < htpElements.length; i++) {
+      console.log(htpElements);
+      htpElements[i].parentNode.removeChild(htpElements[i]);
+      htpElements[i].parentNode.removeChild(htpElements[i]);
+    }
   }
 
   timer.style.visibility = '';
@@ -38,6 +55,8 @@ function startGame() {
 
   var combatScreen = document.getElementById('enemy-combat');
   combatScreen.style.visibility = 'hidden';
+
+  gameStarted = true;
 
   sizing();
 }
@@ -76,6 +95,7 @@ function loadNextLevel() {
   enemyBeat = false;
   removeElementById(level);
   level++;
+  levelDiv = document.getElementById(level);
   if(level === levelCount+1) {
     stopTimer();
   }
@@ -131,13 +151,13 @@ function getState(point) {
 
   if(buttonClass == 'button-point') {
     state = 'button';
-
   } else if(buttonClass === 'door-point') {
     state = 'door';
-    console.log(state);
     checkComplete();
-
-  } else {
+  } else if(buttonClass === 'chest-point') {
+    state = 'chest';
+    openChest(point);
+  }else {
     state = 'default';
   }
 }
@@ -147,7 +167,6 @@ var complete = false;
 function updateButton(button, movePointStage) {
   var stageDiv = button.parentNode;
   var stage = stageDiv.className.split(' ')[1];
-  var levelDiv = stageDiv.parentNode;
   var buttonLvl = levelDiv.id;
 
   if(state === 'button') {
@@ -168,6 +187,15 @@ function updateButton(button, movePointStage) {
       }
     }
   }
+}
+
+function openChest(movePoint) {
+  var stageDiv = movePoint.parentNode;
+  var chest = stageDiv.getElementsByClassName('chest')[0];
+  chest.src = chestOpenImg;
+
+  instaKill++;
+
 }
 
 function removeElement(element) {
@@ -234,7 +262,7 @@ var qteTimer = document.getElementById('qte-timer');
 
 var button = document.getElementById('qte-btn');
 var bufferX = 800;
-var bufferY = 400;
+var bufferY = 500;
 var randomX = randomNum(bufferX, 1920-bufferX);
 var randomY = randomNum(bufferY, 1080-bufferY);
 
@@ -245,6 +273,11 @@ var qteInterval;
 function combat() {
   button.style = `margin-left: ${randomX}px; margin-top: ${randomY}px`;
   qteInterval = setInterval(countDown, 1000);
+  if(instaKill >= 1) {
+    enemyHealth = 0;
+    instaKill--;
+    stopCombat();
+  }
 }
 
 function countDown() {
@@ -277,9 +310,14 @@ function moveBtn() {
 }
 
 function stopCombat() {
-  enemyBeat = true;
+  var enemies = levelDiv.getElementsByClassName('enemy');
+
+  if(enemies.length-1 <= 0) {
+    console.log('test');
+    enemyBeat = true;
+  }
+
   clearInterval(qteInterval);
-  var levelDiv = document.getElementById(level);
   var stageDiv = levelDiv.getElementsByClassName(`stage ${enemyStage}`)[0];
   var enemyImg = stageDiv.getElementsByClassName('enemy')[0];
   stageDiv.removeChild(enemyImg);
@@ -291,7 +329,6 @@ function checkComplete() {
   var door = document.getElementsByClassName(`door-${level}`)[0];
   console.log(door);
   if(door.className.split(' ')[2] == 'open' && enemyBeat === true && state === 'door') {
-    console.log('test');
     loadNextLevel();
   }
 }
